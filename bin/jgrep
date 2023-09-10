@@ -1,3 +1,30 @@
 #!/usr/bin/env bash
 
+BIN_DIR=$(dirname "$(realpath "$0")")
+HOME_DIR=$(dirname "${BIN_DIR}")
 
+JRE=""
+
+if [ -z "$JRE" ]; then
+    if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+        JRE="$JAVA_HOME"
+    fi
+fi
+
+if [ -z "$JRE" ]; then
+    JAVA_BIN=$(command -v java)
+else
+    JAVA_BIN="$JRE/bin/java"
+fi
+
+if [ -z "$JAVA_BIN" ] || [ ! -x "$JAVA_BIN" ]; then
+    message "No JRE found. Please make sure \$JAVA_HOME point to valid JRE installation."
+    exit 1
+fi
+
+CLASS_PATH="$HOME_DIR/lib/jgrep.jar"
+
+exec "$JAVA_BIN" \
+    -classpath "$CLASS_PATH" \
+    org.jgrep.JGrep \
+    "$@"
