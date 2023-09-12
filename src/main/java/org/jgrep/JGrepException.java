@@ -1,7 +1,6 @@
 package org.jgrep;
 
-
-class JGrepException extends Exception {
+public class JGrepException extends Exception {
 
     public JGrepException() {
         super();

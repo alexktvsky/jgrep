@@ -1,7 +1,5 @@
 package org.jgrep;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.lang.RuntimeException;
 import java.util.Arrays;
 import java.io.FileReader;
@@ -13,19 +11,16 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.function.BiConsumer;
-import org.jgrep.CommandLine;
-import org.jgrep.CommandLineOption;
-import org.jgrep.ConsoleColors;
 
 public class JGrep {
 
     private static final String VERSION = "0.1";
 
-    private String pattern;
-    private String[] filenames;
-    private boolean recursive;
-    private boolean ignoreCase;
-    private boolean showLineNumbers;
+    private final String pattern;
+    private final String[] filenames;
+    private final boolean recursive;
+    private final boolean ignoreCase;
+    private final boolean showLineNumbers;
 
     public JGrep(String pattern, String[] filenames, boolean recursive, boolean ignoreCase, boolean showLineNumbers) {
         this.pattern = pattern;
@@ -47,10 +42,11 @@ public class JGrep {
     }
 
     private void printLineWithFilename(String line, int lineNumber, String filename) {
+        String coloredFilename = ConsoleColors.MAGENTA + filename + ConsoleColors.RESET;
         if (showLineNumbers)
-            System.out.println("" + ConsoleColors.GREEN + lineNumber + ConsoleColors.RESET + ":" + line);
+            System.out.println(coloredFilename + ":" + ConsoleColors.GREEN + lineNumber + ConsoleColors.RESET + ":" + line);
         else
-            System.out.println(line);
+            System.out.println(coloredFilename + ":" + line);
     }
 
     private Pattern getCompiledPattern(String pattern, boolean caseInsensitive) {
@@ -80,7 +76,7 @@ public class JGrep {
         try (LineNumberReader reader =
                 new LineNumberReader(new InputStreamReader(System.in))
         ) {
-            BiConsumer<String, Integer> consumer = (line, lineNumber) -> printLine(line, lineNumber);
+            BiConsumer<String, Integer> consumer = this::printLine;
             processInputUsingReader(reader, consumer);
         }
         catch (IOException e) {

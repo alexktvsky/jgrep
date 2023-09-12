@@ -7,13 +7,12 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.jgrep.CommandLineOption;
 
 public class CommandLine {
 
-    private List<CommandLineOption> options;
-    private Map<String, String> parsedOptions;
-    private List<String> parsedArguments;
+    private final List<CommandLineOption> options;
+    private final Map<String, String> parsedOptions;
+    private final List<String> parsedArguments;
 
     public CommandLine() {
         options = new ArrayList<>();
@@ -26,7 +25,7 @@ public class CommandLine {
     }
 
     public boolean hasOption(String opt) {
-        return parsedOptions.get(opt) != null ? true : false;
+        return parsedOptions.get(opt) != null;
     }
 
     public String[] getArgs() {
@@ -39,7 +38,7 @@ public class CommandLine {
 
     /**
      * Parses a command line that may contain one or more flags
-     * before an optional command string
+     * before an optional command string.
      * @param args command line arguments
      * @return true if parsing succeeded, false otherwise.
      */
