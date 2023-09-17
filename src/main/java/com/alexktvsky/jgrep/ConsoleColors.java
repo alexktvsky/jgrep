@@ -1,4 +1,4 @@
-package org.jgrep;
+package com.alexktvsky.jgrep;
 
 public enum ConsoleColors {
     RESET("\033[0m"),           // RESET

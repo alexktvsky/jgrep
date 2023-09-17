@@ -1,4 +1,4 @@
-package org.jgrep;
+package com.alexktvsky.jgrep;
 
 import java.util.List;
 import java.util.Arrays;

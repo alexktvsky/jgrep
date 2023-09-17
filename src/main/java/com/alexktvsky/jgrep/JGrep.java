@@ -1,4 +1,4 @@
-package org.jgrep;
+package com.alexktvsky.jgrep;
 
 import java.lang.RuntimeException;
 import java.util.Arrays;

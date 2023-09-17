@@ -1,4 +1,4 @@
-package org.jgrep;
+package com.alexktvsky.jgrep;
 
 public class CommandLineOption {
 
